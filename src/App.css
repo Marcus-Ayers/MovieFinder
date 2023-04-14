@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 body {
-  background-color: grey;
+  background-color: rgb(241, 236, 236);
+}
+
+.max-w-200 {
+  max-width: 200px;
+}
+
+.text-md {
+  font-size: 0.92rem;
 }

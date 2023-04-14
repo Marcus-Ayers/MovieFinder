@@ -1,12 +1,14 @@
 export const Navbar = () => {
   return (
-    <div className="flex justify-between items-center bg-black h-14">
-      <div className="flex">
-        <h2 className="ml-5 text-2xl text-lime-400">Home</h2>
-      </div>
-      <div className="flex">
-        <h2 className="ml-5 text-2xl text-lime-400">Watchlist</h2>
-        <h2 className="ml-5 mr-5 text-2xl text-lime-400">Reviews</h2>
+    <div className="bg-green-900">
+      <div className="flex justify-between items-center h-14 mb-5 max-w-screen-2xl mx-auto	">
+        <div className="flex">
+          <h2 className="ml-5 text-2xl text-white">Home</h2>
+        </div>
+        <div className="flex">
+          <h2 className="ml-5 text-2xl text-white">Watchlist</h2>
+          <h2 className="ml-5 mr-5 text-2xl text-white">Reviews</h2>
+        </div>
       </div>
     </div>
   );
