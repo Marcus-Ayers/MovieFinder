@@ -97,7 +97,6 @@ function Home() {
   };
   const findMovies = () => {
     setPage(1);
-    fetchData(1);
   };
 
   const genres = [
