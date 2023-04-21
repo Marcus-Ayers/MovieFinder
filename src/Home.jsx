@@ -96,7 +96,12 @@ function Home() {
     }
   };
   const findMovies = () => {
-    setPage(1);
+    if (page == 1) {
+      setPage(1);
+      fetchData(1);
+    } else {
+      setPage(1);
+    }
   };
 
   const genres = [
