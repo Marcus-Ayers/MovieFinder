@@ -6,6 +6,9 @@ import { fetchMoviesByAndGenres, fetchMoviesByOrGenres } from "./Genre.jsx";
 import { Navbar } from "./Navbar.jsx";
 import { formatDate } from "./Utils.jsx";
 
+const tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
+const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
+
 function Home() {
   const [movies, setMovies] = useState([]);
   const [pages, setPages] = useState();
@@ -13,14 +16,17 @@ function Home() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
-  const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
+  const [currentFetchFunction, setCurrentFetchFunction] = useState(
+    () => (page) => fetchTopRatedMovies(page)
+  );
 
   useEffect(() => {
-    fetchTopRatedMovies();
-    getTotalpages();
-  }, []);
+    if (selectedGenres.length > 0) {
+      fetchData();
+    } else {
+      fetchTopRatedMovies(page);
+    }
+  }, [page]);
 
   async function getTotalpages() {
     try {
@@ -52,20 +58,23 @@ function Home() {
 
   const nextPage = () => {
     setPage(page + 1);
-    fetchTopRatedMovies(page + 1);
+    currentFetchFunction(page + 1);
   };
 
   const prevPage = () => {
-    setPage(page - 1);
-    fetchTopRatedMovies(page - 1);
+    if (page > 1) {
+      setPage(page - 1);
+      currentFetchFunction(page - 1);
+    }
   };
 
-  const andGenres = async () => {
-    const movies = await fetchMoviesByAndGenres(selectedGenres);
+  const andGenres = async (page = 1) => {
+    const movies = await fetchMoviesByAndGenres(selectedGenres, page);
     setMovies(movies);
   };
-  const orGenres = async () => {
-    const movies = await fetchMoviesByOrGenres(selectedGenres);
+
+  const orGenres = async (page = 1) => {
+    const movies = await fetchMoviesByOrGenres(selectedGenres, page);
     setMovies(movies);
   };
 
@@ -75,10 +84,20 @@ function Home() {
 
   const fetchData = () => {
     if (toggle) {
-      orGenres();
+      orGenres(page);
+      setCurrentFetchFunction(
+        () => (page) => fetchMoviesByOrGenres(selectedGenres, page)
+      );
     } else {
-      andGenres();
+      andGenres(page);
+      setCurrentFetchFunction(
+        () => (page) => fetchMoviesByAndGenres(selectedGenres, page)
+      );
     }
+  };
+  const findMovies = () => {
+    setPage(1);
+    fetchData(1);
   };
 
   const genres = [
@@ -187,7 +206,7 @@ function Home() {
                     </label>
                   </div>
                   <div className="bg-green-700 rounded-md flex justify-center mt-3">
-                    <button onClick={fetchData}>Find Movies</button>
+                    <button onClick={findMovies}>Find Movies</button>
                   </div>
                 </div>
               </div>
