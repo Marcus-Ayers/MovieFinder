@@ -14,8 +14,8 @@ function Home() {
   const [toggle, setToggle] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const tmdbApiKey = "e0a2e44cce11e2aeb9a8969f5f37722e";
-  const omdbApiKey = "3d48259b";
+  const tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
+  const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
 
   useEffect(() => {
     fetchTopRatedMovies();

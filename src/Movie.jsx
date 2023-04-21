@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Navbar } from "./Navbar";
 
-const tmdbApiKey = "e0a2e44cce11e2aeb9a8969f5f37722e";
+const tmdbApiKey = import.meta.env.VITE_TMDB_API_KEY;
+const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
+
 function Movie() {
   const { id } = useParams();
   const [movieData, setMovieData] = useState(null);
