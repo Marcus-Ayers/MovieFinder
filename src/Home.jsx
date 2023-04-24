@@ -135,8 +135,8 @@ function Home() {
   return (
     <div className="movie-finder">
       <Navbar />
-      <div className="flex justify-center">
-        <div className=" w-64 flex-none mr-5 ">
+      <div className="flex flex-col lg:flex-row justify-center">
+        <div className=" w-64 flex-none mr-5 ml-auto mr-auto md:ml-0 md:mr-0">
           <h1 className="mb-6 mt-5 font-semibold text-3xl">Popular Movies</h1>
           <div className="flex flex-wrap">
             <div className="flex justify-between min-w-full mb-10">
@@ -217,7 +217,7 @@ function Home() {
             )}
           </div>
         </div>
-        <div className="flex max-w-6xl felx-row flex-wrap">
+        <div className="flex max-w-6xl felx-row flex-wrap justify-center md:justify-normal">
           {movies.map((movie, index) => {
             return (
               <Link to={`/movie/${movie.id}`} key={index}>
